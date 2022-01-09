@@ -54,5 +54,59 @@ let p1: Point = { x: 1, y: 2 }
 // p1.x = 5 // error
 
 
+/* 加密的函数接口--- 对方法传入的参数以及返回值进行约束 批量约束 */
+interface secret {
+  (key: number, value: string): string;
+}
+const md5: secret = (key: number, value: string) => {
+  return key + '----' + value;
+}
+console.log(md5(111, '函数接口---'));
+
+/* 类类型接口 */
+interface Song {
+  name: string;
+  sing(str: string): void;
+}
+class Rap implements Song {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+  sing(): void {
+    console.log(this.name + ' 唱歌！');
+  }
+}
+const rap = new Rap('GALI')
+rap.sing()
+
+/* 接口继承接口 */
+interface Life {
+  breath(): void;
+}
+class Man {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+  eat(): void {
+    console.log(this.name + ' 吃饭！');
+  }
+}
+// 继承+实现
+class CoderMan extends Man implements Life {
+  constructor(name: string) {
+    super(name)
+  }
+  breath(): void {
+    console.log(this.name + '这个人再呼吸!');
+  }
+  eat(): void {
+    console.log(this.name + '这个人再吃饭!');
+  }
+}
+const coderMan = new CoderMan('李白')
+coderMan.breath()
+coderMan.eat()
 
 
